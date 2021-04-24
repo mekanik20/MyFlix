@@ -1,6 +1,146 @@
-MyFlix 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>My Flix Documentation</title>
+  <link href="docu_stylesheet.css" rel="stylesheet" type="text/css">
+  <style>
+      table, tr, th, td {
+          border: 1px solid black;
+          border-collapse: collapse;
+      }
+  </style>
+</head>
 
-Purpose of this app is to build the server-side component of a “movies” web application. The web
-application will provide users with access to information about different
-movies, directors, and genres. Users will be able to sign up, update their
-personal information, and create a list of their favorite movies.
+<body>
+  <h1>My Flix</h1>
+  <p>
+    Purpose of this app is to build the server-side component of a “movies” web application. The web
+    application will provide users with access to information about different
+    movies, directors, and genres. Users will be able to sign up, update their
+    personal information, and create a list of their favorite movies.
+  </p>
+
+<table style="width:95%">
+  <tr>
+      <th>Endpoint</th>
+      <th>HTTP Method</th>
+      <th>Request Format</th>
+      <th>Response Format</th>
+      <th>Use Case</th>
+  </tr>
+
+  <!-- GET request to return JSON of all movies to user-->
+  <tr>
+      <td>/api/movies</td>
+      <td>GET</td>
+      <td>None</td>
+      <td>JSON</td>
+      <td>Returns the list of all movies</td>
+  </tr>
+
+  <!--GET request for details on requested movie from user-->
+  <tr>
+      <td>/api/movies/[title]</td>
+      <td>GET</td>
+      <td>None</td>
+      <td>JSON</td>
+      <td>Returns information on movie related to title</td>
+  </tr>
+
+  <!--GET request for data for specified genre-->
+  <tr>
+      <td>/api/genre/[genre]</td>
+      <td>GET</td>
+      <td>None</td>
+      <td>JSON</td>
+      <td>Returns a data description by name, i.e. "Horror"</td>
+  </tr>
+
+  <!--GET request for director information-->
+  <tr>
+      <td>/api/movies/[title]/director</td>
+      <td>GET</td>
+      <td>None</td>
+      <td>JSON</td>
+      <td>Returns available data on director by name</td>
+  </tr>
+
+  <!--POST request that expects JSON of user to be created and returns JSON of user that was created if successful-->
+  <tr>
+      <td>/api/users</td>
+      <td>POST</td>
+      <td>JSON <br />
+        <span>
+            {<br />
+            "username": "[username]",<br />
+            "password": "[password]",<br />
+            "email": "[email]",<br />
+            "firstName": "[firstName]",<br />
+            "lastName": "[lastName]",<br />
+            "dateOfBirth": "[dateOfBirth]",<br />
+            }<br />
+        </span>
+      </td>
+      <td>JSON</td>
+      <td>Allow users to register</td>
+  </tr>
+
+  <!--PUT request for JSON of updating user info-->
+  <tr>
+      <td>/api/users/[username]/[movieID]</td>
+      <td>PUT</td>
+      <td>None</td>
+      <td>JSON</td>
+      <td>Allows user to update their information</td>
+  </tr>
+
+  <!--PUT request expecting JSON with added movie from user, returns JSON of current user info after update-->
+  <tr>
+      <td>/api/users/[username]</td>
+      <td>PUT</td>
+      <td>JSON <br />
+        <span>
+            {<br />
+            "username": "[username]",<br />
+            "password": "[password]",<br />
+            "email": "[email]",<br />
+            "firstName": "[firstName]",<br />
+            "lastName": "[lastName]",<br />
+            "dateOfBirth": "[dateOfBirth]",<br />
+            }<br />
+        </span>
+      </td>
+      <td>JSON</td>
+      <td>Allows users to update/add movie to list of favorites</td>
+  </tr>
+
+  <!--DELETE request returning user and specified info-->
+  <tr>
+      <td>/api/users/[username]/[movieID]</td>
+      <td>DELETE</td>
+      <td>None</td>
+      <td>JSON</td>
+      <td>Allows a user to delete a movie from the favorites list</td>
+  </tr>
+
+  <!--DELETE request for user account returning if successful-->
+  <tr>
+      <td>/api/users/[username]</td>
+      <td>DELETE</td>
+      <td>None</td>
+      <td>Status alert</td>
+      <td>Allows users to delete/deactivate account</td>
+  </tr>
+</table>
+
+</body>
+</html>
+
+
+
+
+
+
+
