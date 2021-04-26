@@ -41,60 +41,49 @@ let movies = [
 //GET requests
 
 app.get('/', (req, res) => {
-    res.status(200).send('Welcome to MyFlix');
+    res.send('Welcome to MyFlix.');
 });
 
-app.get('/api/movies', (req, res) => {
-    res.send(movies);
+app.get('/movies', (req, res) => {
+    res.send('Successful GET request returning all movies to user.');
 });
 
-app.get('/api/movies/:title', (req, res) => {
-    res.json(movies.find((movies) => 
-    { return movies.title === req.params.movies}));
+app.get('/movies/:title', (req, res) => {
+    res.send('Successful GET request returning a specific movie to user.')
 });
 
-app.get('/api/genre/:genre', (req, res) => {
-    res.json(movies.find((genre) => 
-    { return movies.genre === req.params.genre}));
+app.get('/genre/:genre', (req, res) => {
+    res.send('Successful GET request returning a specific genre to user.')
 });
 
-app.get('/api/movies/:title/director', (req, res) => {
-    res.send('director');
+app.get('/movies/:title/director', (req, res) => {
+    res.send('Successful GET request returning a director to user.');
 });
 
 //POST requests
 
-app.post('/api/users', (req, res) => {
-    let newUser = req.body;
+app.post('/users', (req, res) => {
+    res.send('Successful POST request allowing a user to register.')
+});
 
-    if (newUser.name) {
-        const message = 'Missing name in request body';
-        res.status(400).send(message);
-    } else {
-        newUser.id = uuid.v4();
-        users.push(newUser);
-        res.status(201).send(newUser);
-    }
+app.post('/users/favmovie', (req, res) => {
+    res.send('Successful POST request allowing user to add a movie to their favorites.')
 });
 
 //PUT request
 
-app.put('/api/users/:username', (req, res) => {
-    let user = users.find((user) => { return user.name === req.params.name});
-
-    if (user) {
-        user.username[req.params.username] = parseInt(req.params.username);
-        res.status(201).send(req.params.username + ' was found successfully' );
-    } else {
-        res.status(404).send('User ' + req.params.name + 'was not found.');
-    }
+app.put('/users/:username', (req, res) => {
+    res.send('Successful PUT request allowing user to update info.')
 });
 
 //DELETE request
 
-app.delete('/api/users/:username/:movieID', (req,res) => {
-    let user = users.filter((obj) => {return obj.movieID !== req.params.movieID});
-    res.status(201).send('User' + req.params.movieID + ' was deleted.');
+app.delete('/users/:username/:movieID', (req,res) => {
+    res.send('Successful DELETE request allowing user to deregister.')
+});
+
+app.delete('/users/favmovie', (req, res) => {
+    res.send('Successful DELETE request allowing user to delete a movie from their favorites list.')
 });
 
 //Middlware
