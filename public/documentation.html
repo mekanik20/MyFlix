@@ -14,7 +14,7 @@
 </head>
 
 <body>
-  <h1>My Flix</h1>
+  <h1>MyFlix</h1>
   <p>
     Purpose of this app is to build the server-side component of a “movies” web application. The web
     application will provide users with access to information about different
@@ -133,7 +133,79 @@
       <td>Status alert</td>
       <td>Allows users to delete/deactivate account</td>
   </tr>
-</table>
+</table><br />
+
+<!--Table showing Entities and their Attributes-->
+<table style="width:95%">
+  <tr>
+      <th>Entity</th>
+      <th>Attributes</th>
+  </tr>
+
+  <tr>
+      <td>Movies</td>
+      <td>ID, Title, Description, Genre, Director, Image URL, Featured movie</td>
+  </tr>
+
+  <tr>
+      <td>Director</td>
+      <td>ID, Name, Bio, Birth year, Death year</td>
+  </tr>
+
+  <tr>
+      <td>Genre</td>
+      <td>ID, Name, Description</td>
+  </tr>
+
+  <tr>
+      <td>Users</td>
+      <td>ID, Username, Password, Email, Birthday, Favorite movies</td>
+  </tr>
+</table><br />
+
+<!--Table showing Movies entities and attributes-->
+<table style="width:95%">
+  <th>MovieID</th>
+  <th>Title</th>
+  <th>Description</th>
+  <th>GenreID</th>
+  <th>DirectorID</th>
+  <th>Image URL</th>
+  <th>Featured movie</th>
+</table><br />
+
+<!--Table showing Genre entities and attributes-->
+<table style="width:95%">
+  <th>GenreID</th>
+  <th>Name</th>
+  <th>Description</th>
+</table><br />
+
+<!--Table showing Director entities and attributes-->
+<table style="width:95%">
+  <th>DirectorID</th>
+  <th>Name</th>
+  <th>Bio</th>
+  <th>Birth Year</th>
+  <th>Death Year</th>
+</table><br />
+
+<!--Table showing User entities and attributes-->
+<table style="width:95%">
+  <th>UserID</th>
+  <th>Username</th>
+  <th>Password</th>
+  <th>Email</th>
+  <th>Birthday</th>
+</table><br />
+
+<!--Junction table for Users-Movies entities and attributes-->
+<table style="width:95%">
+  <th>UserMovieID</th>
+  <th>UserID</th>
+  <th>MovieID</th>
+</table><br />
+
 
 </body>
 </html>
