@@ -22,19 +22,47 @@ app.get('/', (req, res) => {
 });
 
 app.get('/movies', (req, res) => {
-    res.send('Successful GET request returning all movies to user.');
+  Movies.find()
+    .then((movies) => {
+      res.status(201).json(movies);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Error: " + err);
+    });
 });
 
-app.get('/movies/:title', (req, res) => {
-    res.send('Successful GET request returning a specific movie to user.')
+app.get('/movies/:Title', (req, res) => {
+  Movies.findOne({ Title: req.params.Title})
+    .then((movie) => {
+      res.json(movie);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Error: " + err);
+    });
 });
 
-app.get('/genre/:genre', (req, res) => {
-    res.send('Successful GET request returning a specific genre to user.')
+app.get('/genre/:Name', (req, res) => {
+  Movies.findOne({ 'Genre.Name': req.params.Name })
+    .then((movie) => {
+      res.status(201).json(movie.Genre.Description);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Error: " + err);
+    });
 });
 
-app.get('/movies/:title/director', (req, res) => {
-    res.send('Successful GET request returning a director to user.');
+app.get('/director/:Name', (req, res) => {
+  Movies.findOne({ 'Director.Name': req.params.Name })
+    .then((movie) => {
+      res.status(201).json(movie.Director);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Error: " + err);
+    });
 });
 
 //Get all users
@@ -65,7 +93,7 @@ app.get('/users/:Username', (req, res) => {
 
 //POST requests
 
-app.post('/users', (req, res) => {
+app.post('api/users', (req, res) => {
   Users.findOne({ Username: req.body.Username})
     .then((user) => {
       if (user) {
@@ -78,11 +106,12 @@ app.post('/users', (req, res) => {
               Email: req.body.Email,
               Birthday: req.body.Birthday
           })
-          .then((user) =>{res.status(201).json(user) })
-        .catch((error) => {
-          console.error(error);
-          res.status(500).send('Error: ' + error);
-        })
+          .then((user) =>{res.status(201).json(user);
+          })
+          .catch((error) => {
+            console.error(error);
+            res.status(500).send('Error: ' + error);
+          });
       }
     })
     .catch((error) => {
@@ -177,33 +206,3 @@ app.use((err, req, res, next) => {
 app.listen(8080, () => {
     console.log('Your app is listening on port 8080.');
 });
-
-//add favorite movie to users
-
-db.users.update(
-    { Username: "JeepGuy" },
-    { $push: { FavoriteMovies: ObjectId("60aea0209da56eb7f8cf3a3c") } }
-  )
-
-db.users.update(
-    { Username: "rebelwithacause" },
-    { $push: { FavoriteMovies: ObjectId("60aea0209da56eb7f8cf3a3d") } }
-  )
-
-db.users.update(
-    { Username: "iamchonky" },
-    { $push: { FavoriteMovies: ObjectId("60aea0209da56eb7f8cf3a41") } }
-  )
-
-db.users.update(
-    { Username: "petey" },
-    { $push: { FavoriteMovies: ObjectId("60aea0209da56eb7f8cf3a3e") } }
-  )
-
-db.users.update(
-    { Username: "devastation" },
-    { $push: { FavoriteMovies: ObjectId("60aea0209da56eb7f8cf3a40") } }
-  )
-
-  db.users.update({}, {$set : {"FavoriteMovies":[]}}, {upsert:false, multi:true})
-  db.movies.update({}, {$set : {"DirectorBio": []}}, {upsert:false, multi:true})
