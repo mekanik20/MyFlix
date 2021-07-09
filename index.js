@@ -93,7 +93,7 @@ app.get('/users/:Username', (req, res) => {
 
 //POST requests
 
-app.post('api/users', (req, res) => {
+app.post('/users', (req, res) => {
   Users.findOne({ Username: req.body.Username})
     .then((user) => {
       if (user) {
@@ -176,14 +176,15 @@ app.delete('/users/:Username', (req, res) => {
 
 //Remove a movie from a user's favorite movies list
 
-app.post('/users/:Username/Movies/:MovieID', (req,res) => {
-    Users.findOneAndUpdate({ Username: req.params.Username}, {
-      $pull: { FavoriteMovies: req.params.MovieID }
-    },
-    { new: true }, (err, updatedUser) => {
-      if (err) {
-        console.error(err);
-        res.status(500).send('Error: ' + err);
+app.delete('/users/:Username/FavoriteMovies/:MovieID', (req, res) => {
+  Users.findOneAndRemove({ Username: req.params.Username }, {
+     $pull: { Movie: req.params.MovieID }
+   },
+   { new: false },
+  (err, updatedUser) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
     } else {
       res.json(updatedUser);
     }
