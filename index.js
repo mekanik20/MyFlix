@@ -1,5 +1,11 @@
 const mongoose = require('mongoose');
 const Models = require('./models.js');
+const bodyParser = require('body-parser');
+const express = require('express');
+const app = express();
+const morgan = require('morgan');
+const passport = require('passport');
+require('./passport');
 
 const Movies = Models.Movie;
 const Users = Models.User;
@@ -8,12 +14,13 @@ const Directors = Models.Director;
 
 mongoose.connect('mongodb://localhost:27017/myFlixDB', {useNewUrlParser: true, useUnifiedTopology: true});
 
-const bodyParser = require('body-parser');
-const express = require('express');
-  const app = express();
-  app.use(bodyParser.json());
+//Middleware
 
-const morgan = require('morgan');
+app.use(morgan('common'));
+app.use(bodyParser.json());
+app.use(express.static('public'));
+
+let auth = require('./auth')(app);
 
 //GET requests
 
@@ -21,7 +28,7 @@ app.get('/', (req, res) => {
     res.send('Welcome to MyFlix.');
 });
 
-app.get('/movies', (req, res) => {
+app.get('/movies', passport.authenticate('jwt', { session: false }), (req, res) => {
   Movies.find()
     .then((movies) => {
       res.status(201).json(movies);
@@ -97,7 +104,7 @@ app.post('/users', (req, res) => {
   Users.findOne({ Username: req.body.Username})
     .then((user) => {
       if (user) {
-        return res.status(400).send(req.body.Username + 'already exists');
+        return res.status(400).send(req.body.Username + ' already exists');
       } else {
         Users
           .create({
@@ -191,12 +198,6 @@ app.delete('/users/:Username/FavoriteMovies/:MovieID', (req, res) => {
     }
   });
 });
-
-//Middleware
-
-app.use(morgan('common'));
-
-app.use(express.static('public'));
 
 // Error-handling
 
