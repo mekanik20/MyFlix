@@ -6,11 +6,14 @@ const app = express();
 const morgan = require('morgan');
 const passport = require('passport');
 require('./passport');
+const { check, validationResult } = require('express-validator');
 
 const Movies = Models.Movie;
 const Users = Models.User;
 const Genres = Models.Genre;
 const Directors = Models.Director;
+const cors = require('cors');
+app.use(cors());
 
 mongoose.connect('mongodb://localhost:27017/myFlixDB', {useNewUrlParser: true, useUnifiedTopology: true});
 
@@ -21,6 +24,8 @@ app.use(bodyParser.json());
 app.use(express.static('public'));
 
 let auth = require('./auth')(app);
+
+check('Username', 'Username contains non-alphanumeric characters - not allowed.').isAlphanumeric();
 
 //GET requests
 
@@ -100,16 +105,28 @@ app.get('/users/:Username', passport.authenticate('jwt', { session: false }), (r
 
 //POST request for new/existing user
 
-app.post('/users', (req, res) => {
-  Users.findOne({ Username: req.body.Username})
+app.post('/users', [
+  check('Username', 'Username is required').isLength({min: 5}),
+  check('Username', 'Username contains non alphanumeric characters - not allowed').isAlphanumeric(),
+  check('Password', 'Password is required').not().isEmpty(),
+  check('Email', 'Email does not appear to valid').isEmail()
+  ], (req, res) => {
+  let errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    return res.status(422).json({ erros: errors.array() });
+  }
+  let hashedPassword = Users.hashPassword(req.body.Password);
+  Users.findOne({ Username: req.body.Username}) // Search to see if a user with the requested username already exists
     .then((user) => {
       if (user) {
+      //If the user is found, send a response that it already exists
         return res.status(400).send(req.body.Username + ' already exists');
       } else {
         Users
           .create({
               Username: req.body.Username,
-              Password: req.body.Password,
+              Password: hashedPassword,
               Email: req.body.Email,
               Birthday: req.body.Birthday
           })
@@ -204,8 +221,9 @@ app.delete('/users/:Username/FavoriteMovies/:MovieID', passport.authenticate('jw
 app.use((err, req, res, next) => {
     console.error(err.stack);
     res.status(500).send('Something went wrong...')
-})
+});
 
-app.listen(8080, () => {
-    console.log('Your app is listening on port 8080.');
+const port = process.env.PORT || 8080;
+app.listen(port, '0.0.0.0',() => {
+ console.log('Listening on Port ' + port);
 });
