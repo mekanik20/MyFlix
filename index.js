@@ -8,6 +8,11 @@ const passport = require('passport');
 require('./passport');
 const { check, validationResult } = require('express-validator');
 
+const port = process.env.PORT || 8080;
+app.listen(port, '0.0.0.0',() => {
+ console.log('Listening on Port ' + port);
+});
+
 const Movies = Models.Movie;
 const Users = Models.User;
 const Genres = Models.Genre;
@@ -223,7 +228,7 @@ app.use((err, req, res, next) => {
     res.status(500).send('Something went wrong...')
 });
 
-const port = process.env.PORT || 8080;
-app.listen(port, '0.0.0.0',() => {
- console.log('Listening on Port ' + port);
-});
+
+
+
+//mongoimport --uri mongodb+srv://mekanik20:Dodgeneonsrt4@myflixdb.zksas.mongodb.net/myFlixDB --collection movies --type json --file ../exported_collections/movies.json
