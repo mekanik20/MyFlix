@@ -15,7 +15,7 @@ const Directors = Models.Director;
 const cors = require('cors');
 app.use(cors());
 
-mongoose.connect('monogdb//git.heroku.com/myflixcf.git', {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect('mongodb//git.heroku.com/myflixcf.git', {useNewUrlParser: true, useUnifiedTopology: true});
 
 //Middleware
 
