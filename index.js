@@ -228,5 +228,5 @@ app.listen(port, '0.0.0.0',() => {
  console.log('Listening on Port ' + port);
 });
 
-
+//mongoexport --db databaseName --collection collName --out /C:\Users\Rob\Desktop\Coding\MongoDB\exported_collections/users.json
 //mongoimport --uri mongodb+srv://mekanik20:Dodgeneonsrt4@myflixdb.zksas.mongodb.net/myFlixDB --collection movies --type json --file ../exported_collections/movies.json
