@@ -1,0 +1,4 @@
+{"_id":{"$oid":"60ad56db9da56eb7f8cf3a37"},"Username":"JeepGuy","Password":"JeepJL","Email":"bigtiresmatter@noemail.com","Birthdate":"1984-07-26","FavoriteMovies":[{"$oid":"60aea0209da56eb7f8cf3a3c"},{"$oid":"60aea0209da56eb7f8cf3a40"}]}
+{"_id":{"$oid":"60ad56db9da56eb7f8cf3a38"},"Username":"rebelwithacause","Password":"Qwerty","Email":"noemailforu@noemail.com","Birthdate":"1983-03-03","FavoriteMovies":[{"$oid":"60aea0209da56eb7f8cf3a3d"}]}
+{"_id":{"$oid":"60ad56db9da56eb7f8cf3a39"},"Username":"iamchonky","Password":"Cookies!","Email":"chunkymonkey@noemail.com","Birthdate":"1985-05-08","FavoriteMovies":[{"$oid":"60aea0209da56eb7f8cf3a41"}]}
+{"_id":{"$oid":"60ad56db9da56eb7f8cf3a3a"},"Username":"petey","Password":"falcoon","Email":"lordfalco@noemail.com","Birthdate":"1993-12-13","FavoriteMovies":[{"$oid":"60aea0209da56eb7f8cf3a3e"}]}

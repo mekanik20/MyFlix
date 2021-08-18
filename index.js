@@ -15,7 +15,8 @@ const Directors = Models.Director;
 const cors = require('cors');
 app.use(cors());
 
-mongoose.connect('mongodb//git.heroku.com/myflixcf.git', {useNewUrlParser: true, useUnifiedTopology: true});
+//mongoose.connect('mongodb//git.heroku.com/myflixcf.git', {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect( process.env.CONNECTION_URI, {useNewUrlParser: true, useUnifiedTopology: true});
 
 //Middleware
 
@@ -229,4 +230,6 @@ app.listen(port, '0.0.0.0',() => {
 });
 
 //mongoexport --db databaseName --collection collName --out /C:\Users\Rob\Desktop\Coding\MongoDB\exported_collections/users.json
-//mongoimport --uri mongodb+srv://mekanik20:Dodgeneonsrt4@myflixdb.zksas.mongodb.net/myFlixDB --collection movies --type json --file ../exported_collections/movies.json
+//mongoimport --uri mongodb+srv://mekanik20:Dodgeneonsrt4@myflixdb.zksas.mongodb.net/myFlixDB --collection movies --type json --file ../exported_collections/myFlixMovies.json
+//mongoimport --uri mongodb+srv://MikeH:Dodgeneonsrt4@myflixdb.aolqv.mongodb.net/myFlixDB --collection users --type json --file users.json
+//mongo "mongodb+srv://myflixdb.aolqv.mongodb.net/myFlixDB" --username MikeH --password Dodgeneonsrt4
