@@ -44,6 +44,6 @@ Profile view
 - Displays favorite movies
 - Allows users to remove a movie from their list of favorites
 
-Tech Used in developing
+Tech Used in Developing
 ---
 Node, MongoDB, Postman, Heroku, Mongoose, Bootstrap, React library, and React redux
